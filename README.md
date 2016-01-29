@@ -2,7 +2,7 @@
 an ant task to count lines of code
 
 Probably the second program ever written was a line counting program. It's a natural desire, to be proud of one's accomplishments.
-And how do you communicate that to someone who doesn't share your joy for the code itself. Line Counts! It's a statistic older
+And how do you communicate that to someone who doesn't share your joy for the code itself? Line Counts! It's a statistic older
 than dirt.
 
 The truth is, it's a bogus statistic. Whoever came up with the idea, (and who did so seriously) was deranged. Line counts really
@@ -58,5 +58,5 @@ You can then do something like
 
 enjoy, and yes i know it's annoyingly similarly named to log4j... heheheheeheh
 
-I'll get it up on maven somepoint soon, so that the one of you who actually tries to use it doesn't have a hard time.
+I'll get it up on maven at some point soon, so that the one of you who actually tries to use it doesn't have a hard time.
 Give me a sec. Cheepers.
