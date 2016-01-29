@@ -1,0 +1,3 @@
+<antlib xmlns:loc4j="ant:com.mebigfatguy.loc4j">
+   <taskdef name="loc4j" classname="com.mebigfatguy.loc4j.Loc4jTask"/>
+</antlib>
