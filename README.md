@@ -13,7 +13,7 @@ And yet.... people... your boss.... still .. want .. them.
 Why, I have no idea. Line counts as a metric should be abolished. Maybe code size (bytes) is better, or maybe some other metrics. But
 line counts no.
 
-And yet here, you are wondering if the ant task will work. Will it produce the right answers? Because Hell, your BOSS WANTS THE DAME LINE COUNT NUMBERS.
+And yet here you are wondering if this ant task will work. Will it produce the right answers? Because Hell, your BOSS WANTS THE DAME LINE COUNT NUMBERS.
 
 So is this program right? Does it count right? 
 
@@ -36,3 +36,22 @@ unitialized local variable isn't counted. Should it? Again, who the hell knows. 
 
 So to run you point it at class path roots, either jars or directories, and say go to town. As long as your class files 
 were compiled with -g (debug) it will count consistently and reliably. You can get Line, Method and Class counts.
+
+To use, you build an ant task like this
+
+    <task name="count" xmlns:vcs="antlib:com.mebigfatguy.loc4j">
+    
+        <loc4j:loc4j linesProperty="__lines__" methodsProperty="__methods__" classesProperties="__classes__">
+			<classpath id="myjars">
+				<pathelement location="${lib.dir}/some-precious.jar" />
+				<pathelement location="${lib.dir}/some-other-precious.jar" />
+            </classpath>
+    </task>
+
+And it will populate the ant properties __lines__, __methods__ and _classes__
+
+you can then do something like
+
+    <echo message="Number Lines Gosh Golly is ${__lines__} I'M SO PROUD"/>
+
+enjoy
