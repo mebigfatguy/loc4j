@@ -19,8 +19,8 @@
 	<property name="target.dir" value="${basedir}/target" />
 	<property name="classes.dir" value="${target.dir}/classes/main" />
 	<property name="javadoc.dir" value="${target.dir}/javadoc" />
-	<property name="javac.source" value="1.7" />
-	<property name="javac.target" value="1.7" />
+	<property name="javac.source" value="1.8" />
+	<property name="javac.target" value="1.8" />
 	<property name="javac.deprecation" value="on" />
 	<property name="javac.debug" value="on" />
 
@@ -71,7 +71,8 @@
 		<mkdir dir="${classes.dir}" />
 		<mkdir dir="${javadoc.dir}" />
 		<path id="loc4j.classpath">
-			<pathelement location="${lib.dir}/asm-debug-all-${asm-debug-all.version}.jar" />
+			<pathelement location="${lib.dir}/asm-${asm.version}.jar" />
+			<pathelement location="${lib.dir}/ant-${ant_.version}.jar" />
 		</path>
 	</target>
 
