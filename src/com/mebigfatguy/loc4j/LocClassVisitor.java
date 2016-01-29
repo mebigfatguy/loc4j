@@ -37,6 +37,10 @@ public class LocClassVisitor extends ClassVisitor {
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+        if ((access & Opcodes.ACC_SYNTHETIC) != 0) {
+            return null;
+        }
+
         counts.addMethodCounts(1);
         return mv;
     }

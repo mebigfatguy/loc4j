@@ -17,31 +17,35 @@
  */
 package com.mebigfatguy.loc4j;
 
-import org.objectweb.asm.AnnotationVisitor;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class LocMethodVisitor extends MethodVisitor {
 
-    private static final LocAnnotationVisitor av = new LocAnnotationVisitor();
     private Counts counts;
+    private Set<Integer> lines;
 
     public LocMethodVisitor() {
         super(Opcodes.ASM5);
+        lines = new HashSet<>();
     }
 
     public void setCounts(Counts cnts) {
         counts = cnts;
-        av.setCounts(cnts);
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-        if ("".equals(desc)) {
-            return av;
-        }
-
-        return super.visitAnnotation(desc, visible);
+    public void visitLineNumber(int line, Label start) {
+        lines.add(Integer.valueOf(line));
     }
 
+    @Override
+    public void visitEnd() {
+        counts.addLineCounts(lines.size());
+        lines.clear();
+    }
 }

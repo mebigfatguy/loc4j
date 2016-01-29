@@ -79,6 +79,16 @@ public class Loc4jTask extends Task {
                     processJar(r);
                 }
             }
+
+            if (linesProperty != null) {
+                p.setProperty(linesProperty, String.valueOf(counts.getLineCounts()));
+            }
+            if (methodsProperty != null) {
+                p.setProperty(methodsProperty, String.valueOf(counts.getMethodCounts()));
+            }
+            if (classesProperty != null) {
+                p.setProperty(classesProperty, String.valueOf(counts.getClassCounts()));
+            }
         } catch (IOException e) {
             throw new BuildException("Failed counting lines", e);
         }
@@ -121,7 +131,7 @@ public class Loc4jTask extends Task {
 
         ClassReader cr = new ClassReader(is);
         LocClassVisitor cv = new LocClassVisitor(counts);
-        cr.accept(cv, ClassReader.SKIP_CODE);
+        cr.accept(cv, 0);
     }
 
     // for testing only
@@ -135,8 +145,14 @@ public class Loc4jTask extends Task {
 
         l.addConfiguredClasspath(cp);
         l.setLinesProperty("lines");
+        l.setMethodsProperty("methods");
+        l.setClassesProperty("classes");
 
         l.execute();
+
+        System.out.println("Lines = " + p.getProperty("lines"));
+        System.out.println("Methods = " + p.getProperty("methods"));
+        System.out.println("Classes = " + p.getProperty("classes"));
     }
 
 }
