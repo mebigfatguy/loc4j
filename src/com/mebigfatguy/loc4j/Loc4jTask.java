@@ -1,6 +1,22 @@
+/*
+ * loc4j - a source code line counting ant task
+ * Copyright 2016 MeBigFatGuy.com
+ * Copyright 2016 Dave Brosius
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package com.mebigfatguy.loc4j;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,14 +32,15 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Resource;
+import org.objectweb.asm.ClassReader;
 
 public class Loc4jTask extends Task {
 
     private String linesProperty;
     private String methodsProperty;
     private String classesProperty;
-    private String packagesProperty;
     private Path classpath;
+    private Counts counts;
 
     public void setLinesProperty(String linesProp) {
         linesProperty = linesProp;
@@ -37,10 +54,6 @@ public class Loc4jTask extends Task {
         classesProperty = classesProp;
     }
 
-    public void setPackagesProperty(String packagesProp) {
-        packagesProperty = packagesProp;
-    }
-
     public void addConfiguredClasspath(final Path cp) {
         classpath = cp;
     }
@@ -51,6 +64,8 @@ public class Loc4jTask extends Task {
         if (classpath == null) {
             throw new BuildException("'classpath' attribute not set");
         }
+
+        counts = new Counts();
 
         try {
             Project p = getProject();
@@ -94,14 +109,19 @@ public class Loc4jTask extends Task {
             JarEntry entry = jis.getNextJarEntry();
             while (entry != null) {
 
-                processClass(jis);
+                if (entry.getName().endsWith(".class")) {
+                    processClass(jis);
+                }
                 entry = jis.getNextJarEntry();
             }
         }
     }
 
-    private void processClass(InputStream is) {
+    private void processClass(InputStream is) throws IOException {
 
+        ClassReader cr = new ClassReader(is);
+        LocClassVisitor cv = new LocClassVisitor(counts);
+        cr.accept(cv, ClassReader.SKIP_CODE);
     }
 
     // for testing only
@@ -111,7 +131,7 @@ public class Loc4jTask extends Task {
         Loc4jTask l = new Loc4jTask();
         l.setProject(p);
 
-        Path cp = new Path(p, "/home/dave/dev/loc4j/target/loc4j-0.1.0.jar");
+        Path cp = new Path(p, "/home/dave/dev/loc4j/target/loc4j-0.1.0-SNAPSHOT.jar");
 
         l.addConfiguredClasspath(cp);
         l.setLinesProperty("lines");
