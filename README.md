@@ -57,3 +57,6 @@ You can then do something like
     <echo message="Number of Lines Gosh Golly is ${__lines__} I'M SO PROUD"/>
 
 enjoy, and yes i know it's annoyingly similarly named to log4j... heheheheeheh
+
+I'll get it up on maven somepoint soon, so that the one of you who actually tries to use it doesn't have a hard time.
+Give me a sec. Cheepers.
