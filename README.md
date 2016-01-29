@@ -39,13 +39,13 @@ were compiled with -g (debug) it will count consistently and reliably. You can g
 
 To use, you build an ant task like this
 
-    <task name="count" xmlns:vcs="antlib:com.mebigfatguy.loc4j">
+    <task name="count" xmlns:loc4j="antlib:com.mebigfatguy.loc4j">
     
         <loc4j:loc4j linesProperty="__lines__" methodsProperty="__methods__" classesProperties="__classes__">
 			<classpath id="myjars">
 				<pathelement location="${lib.dir}/some-precious.jar" />
 				<pathelement location="${lib.dir}/some-other-precious.jar" />
-            </classpath>
+           </classpath>
     </task>
 
 And it will populate the ant properties __lines__, __methods__ and _classes__
@@ -54,4 +54,4 @@ you can then do something like
 
     <echo message="Number Lines Gosh Golly is ${__lines__} I'M SO PROUD"/>
 
-enjoy
+enjoy, and yes i know it's annoyingly similarly named to log4j... heheheheeheh
