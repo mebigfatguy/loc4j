@@ -13,7 +13,7 @@ And yet.... people... your boss.... still .. want .. them.
 Why, I have no idea. Line counts as a metric should be abolished. Maybe code size (bytes) is better, or maybe some other metrics. But
 line counts? NO.
 
-And yet here you are wondering if this ant task will work for you. Will it produce the right answers? Because Hell, your BOSS WANTS THE DAME LINE COUNT NUMBERS.
+And yet here you are wondering if this ant task will work for you. Will it produce the right answers? Because Hell, your BOSS WANTS THE DAMN LINE COUNT NUMBERS.
 
 So is this program right? Does it count right? 
 
