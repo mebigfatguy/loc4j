@@ -50,7 +50,7 @@ To use, you build an ant task like this
 
 And it will populate the ant properties specified.
 
-You don't have to specify all there, just the one(s) you want.
+You don't have to specify all three, just the one(s) you want.
 
 You can then do something like
 
