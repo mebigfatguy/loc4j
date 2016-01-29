@@ -48,7 +48,7 @@ To use, you build an ant task like this
            </classpath>
     </task>
 
-And it will populate the ant properties __lines__, __methods__ and _classes__.
+And it will populate the ant properties specified.
 
 You don't have to specify all there, just the one(s) you want.
 
