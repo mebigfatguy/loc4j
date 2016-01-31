@@ -83,14 +83,17 @@
 	</target>
 
 	<target name="jar" depends="compile" xmlns:vcs="antlib:com.mebigfatguy.vcsversion" description="produces the loc4j jar file">
+		<taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${lib.dir}/jarjar-${jarjar.version}.jar"/>
 		<vcs:vcsversion vcs="git" revisionProperty="_rev_" dateProperty="_date_" branchProperty="_branch_" urlProperty="_url_"/>
-		<jar destfile="${target.dir}/loc4j-${loc4j.version}.jar">
+		<jarjar destfile="${target.dir}/loc4j-${loc4j.version}.jar">
 			<fileset dir="${classes.dir}">
 				<include name="**/*.class" />
 			</fileset>
 			<fileset dir="${basedir}">
 				<include name="license.txt" />
 			</fileset>
+			<zipfileset src="${lib.dir}/asm-${asm.version}.jar" />    	
+			<rule pattern="org.objectweb.asm.**" result="com.mebigfatguy.org.objectweb.asm.@1" />
 			<manifest>
 				<attribute name="loc4j-version" value="${loc4j.version}" />
 				<attribute name="Main-Class" value="com.mebigfatguy.loc4j.Log4JTask" />
@@ -108,7 +111,7 @@
 				<attribute name="Export-Package" value="com.mebigfatguy.loc4j" />
                 <attribute name="Import-Package" value="" />
 			</manifest>
-		</jar>
+		</jarjar>
 	</target>
 
 	<target name="srczip" description="builds the source distribution zip file">
