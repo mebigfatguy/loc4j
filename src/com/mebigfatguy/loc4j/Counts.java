@@ -17,6 +17,9 @@
  */
 package com.mebigfatguy.loc4j;
 
+/**
+ * a simple beans for holding counts of lines, methods and classes
+ */
 public class Counts {
 
     private long lineCounts;
@@ -45,5 +48,10 @@ public class Counts {
 
     public void addClassCounts(long cc) {
         classCounts += cc;
+    }
+
+    @Override
+    public String toString() {
+        return "Lines: " + lineCounts + " Methods: " + methodCounts + " Classes: " + classCounts;
     }
 }
