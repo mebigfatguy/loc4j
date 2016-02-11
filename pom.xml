@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mebigfatguy.loc4j</groupId>
+    <artifactId>loc4j</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <prerequisites>
+        <maven>2.2.1</maven>
+    </prerequisites>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>5</version>
+    </parent>
+
+    <name>loc4j</name>
+    <description>An ant task that does lines of code counting.</description>
+    <url>http://loc4j.mebigfatguy.com</url>
+    <inceptionYear>2016</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>dbrosius</id>
+            <name>Dave Brosius</name>
+            <email>dbrosius@mebigfatguy.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache 2.0 License</name>
+            <url>https://www.apache.org/licenses/</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/mebigfatguy/loc4j/</connection>
+        <developerConnection>scm:git:https://github.com/mebigfatguy/loc4j/</developerConnection>
+        <url>https://github.com/mebigfatguy/loc4j/</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/mebigfatguy/loc4j/issues/</url>
+    </issueManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>E MMM d hh:mm:ss yyyy XX</maven.build.timestamp.format>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>5.0.4</version>
+            <scope>provided</scope>
+        </dependency>
+     </dependencies>
+
+    <build>
+        <sourceDirectory>${basedir}/src</sourceDirectory>
+        <outputDirectory>${basedir}/target/classes</outputDirectory>
+        <resources>
+            <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>license.txt</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin><artifactId>maven-clean-plugin</artifactId><version>2.6.1</version></plugin>
+                <plugin><groupId>org.codehaus.mojo</groupId><artifactId>buildnumber-maven-plugin</artifactId><version>1.3</version></plugin>
+                <plugin><artifactId>maven-compiler-plugin</artifactId><version>3.1</version></plugin>
+                <plugin><artifactId>maven-deploy-plugin</artifactId><version>2.8.2</version></plugin>
+                <plugin><artifactId>maven-install-plugin</artifactId><version>2.5.2</version></plugin>
+                <plugin><artifactId>maven-jar-plugin</artifactId><version>2.6</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <loc4j-version>${project.version}</loc4j-version>
+                                <git-revision>${scmBranch} ${buildNumber} ${maven.build.timestamp}</git-revision>
+                                <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                                <Bundle-Name>loc4j</Bundle-Name>
+                                <Bundle-SymbolicName>loc4j; singleton:=true</Bundle-SymbolicName>
+                                <Bundle-Version>${project.version}</Bundle-Version>
+                                <Bundle-ClassPath>.</Bundle-ClassPath>
+                                <Bundle-Vendor>loc4j project</Bundle-Vendor>
+                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                                <Export-Package>com.mebigfatguy.loc4j</Export-Package>
+                                <Import-Package></Import-Package>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin><artifactId>maven-project-info-reports-plugin</artifactId><version>2.7</version></plugin>
+                <plugin><artifactId>maven-resources-plugin</artifactId><version>2.7</version></plugin>
+                <plugin><artifactId>maven-site-plugin</artifactId><version>3.4</version></plugin>
+                <plugin><artifactId>maven-source-plugin</artifactId><version>2.2.1</version></plugin>
+                <plugin><artifactId>maven-surefire-plugin</artifactId><version>2.18.1</version></plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId><artifactId>buildnumber-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+             <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgument>-Xlint</compilerArgument>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
