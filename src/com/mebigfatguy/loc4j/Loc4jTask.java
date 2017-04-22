@@ -18,7 +18,6 @@
 package com.mebigfatguy.loc4j;
 
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -97,7 +96,7 @@ public class Loc4jTask extends Task {
     private void processDirectory(Resource r) throws IOException {
         try {
             Files.list(Paths.get(r.getName())).filter(c -> c.endsWith(".class")).forEach(p -> {
-                try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(p.toFile()))) {
+                try (BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(p))) {
                     processClass(bis);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
