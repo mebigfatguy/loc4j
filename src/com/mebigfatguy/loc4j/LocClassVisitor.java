@@ -28,7 +28,7 @@ public class LocClassVisitor extends ClassVisitor {
     private Counts counts;
 
     public LocClassVisitor(Counts cnts) {
-        super(Opcodes.ASM5);
+        super(Opcodes.ASM9);
         counts = cnts;
         mv.setCounts(cnts);
 

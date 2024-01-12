@@ -30,7 +30,7 @@ public class LocMethodVisitor extends MethodVisitor {
     private Set<Integer> lines;
 
     public LocMethodVisitor() {
-        super(Opcodes.ASM5);
+        super(Opcodes.ASM9);
         lines = new HashSet<>();
     }
 
